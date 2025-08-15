@@ -5,15 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import words.backend.authmodule.net.models.User;
 import words.com.fileservicev2.domain.models.UploadResult;
+import words.com.fileservicev2.domain.models.enums.FileDirectory;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.UploadService;
-
 import words.com.fileservicev2.domain.utils.AudioUtils;
 import ws.schild.jave.Encoder;
-import ws.schild.jave.EncoderException;
-import ws.schild.jave.InputFormatException;
 import ws.schild.jave.MultimediaObject;
-import ws.schild.jave.encode.AudioAttributes;
 import ws.schild.jave.encode.EncodingAttributes;
 import ws.schild.jave.info.MultimediaInfo;
 
@@ -79,5 +76,10 @@ class WavUploadService implements UploadService {
     @Override
     public Set<String> getSupportedExtensions() {
         return SUPPORTED_EXTENSIONS;
+    }
+
+    @Override
+    public FileDirectory getFileDirectory() {
+        return FileDirectory.AUDIO;
     }
 }

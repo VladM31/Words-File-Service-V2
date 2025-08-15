@@ -3,17 +3,14 @@ package words.com.fileservicev2.domain.services.impls;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
-import words.backend.authmodule.net.models.User; // Assuming this is the correct import for User
+import words.backend.authmodule.net.models.User;
 import words.com.fileservicev2.domain.models.UploadResult;
+import words.com.fileservicev2.domain.models.enums.FileDirectory;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.UploadService;
-
 import words.com.fileservicev2.domain.utils.AudioUtils;
 import ws.schild.jave.Encoder;
-import ws.schild.jave.EncoderException;
-import ws.schild.jave.InputFormatException;
 import ws.schild.jave.MultimediaObject;
-import ws.schild.jave.encode.AudioAttributes;
 import ws.schild.jave.encode.EncodingAttributes;
 import ws.schild.jave.info.MultimediaInfo;
 
@@ -97,5 +94,10 @@ class Mp3UploadService implements UploadService {
     @Override
     public Set<String> getSupportedExtensions() {
         return SUPPORTED_EXTENSIONS;
+    }
+
+    @Override
+    public FileDirectory getFileDirectory() {
+        return FileDirectory.AUDIO;
     }
 }

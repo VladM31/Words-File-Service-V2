@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Import;
 import words.backend.authmodule.configs.WordSecurityMainConfig;
 import words.com.fileservicev2.db.daos.impls.DaoConfig;
 import words.com.fileservicev2.domain.services.impls.DomainServiceConfig;
+import words.com.subscribevalidationmodule.configs.SubscriptionModulMainConfig;
 
 @Configuration
 @Import(
         {
+                SubscriptionModulMainConfig.class,
                 DaoConfig.class,
                 DomainServiceConfig.class,
                 WordSecurityMainConfig.class

@@ -6,11 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import words.backend.authmodule.net.models.User;
 import words.com.fileservicev2.domain.exceptions.ImageUploadException;
 import words.com.fileservicev2.domain.models.UploadResult;
+import words.com.fileservicev2.domain.models.enums.FileDirectory;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
 import words.com.fileservicev2.domain.services.UploadService;
 import words.com.fileservicev2.domain.utils.ImageUtils;
-
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -74,6 +74,11 @@ class ImageUploadService implements UploadService {
     @Override
     public Set<String> getSupportedExtensions() {
         return SUPPORTED_EXTENSIONS;
+    }
+
+    @Override
+    public FileDirectory getFileDirectory() {
+        return FileDirectory.IMAGE;
     }
 
 

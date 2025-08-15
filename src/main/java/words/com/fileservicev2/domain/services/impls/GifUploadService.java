@@ -9,10 +9,10 @@ import words.backend.authmodule.net.models.User;
 import words.com.fileservicev2.domain.exceptions.GifUploadException;
 import words.com.fileservicev2.domain.exceptions.ImageUploadException;
 import words.com.fileservicev2.domain.models.UploadResult;
+import words.com.fileservicev2.domain.models.enums.FileDirectory;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
 import words.com.fileservicev2.domain.services.UploadService;
-
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -102,5 +102,10 @@ class GifUploadService implements UploadService {
     @Override
     public Set<String> getSupportedExtensions() {
         return SUPPORTED_EXTENSIONS;
+    }
+
+    @Override
+    public FileDirectory getFileDirectory() {
+        return FileDirectory.IMAGE;
     }
 }

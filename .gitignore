@@ -37,3 +37,4 @@ build/
 /.mvn/wrapper/maven-wrapper.properties
 /src/main/resources/application-postgresql.properties
 /src/main/resources/application-cloud.properties
+/src/main/resources/application-subscribe.properties

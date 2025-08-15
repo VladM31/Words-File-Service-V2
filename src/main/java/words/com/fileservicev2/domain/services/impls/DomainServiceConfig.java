@@ -2,11 +2,13 @@ package words.com.fileservicev2.domain.services.impls;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import words.com.fileservicev2.db.daos.FileMetadataDao;
+import words.com.fileservicev2.domain.mappers.FileMetadataMapper;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
+import words.com.fileservicev2.domain.services.UploadManager;
 import words.com.fileservicev2.domain.services.UploadService;
 import words.com.fileservicev2.utils.AppUtils;
-
 
 import java.nio.file.Path;
 import java.util.List;
@@ -29,7 +31,7 @@ public class DomainServiceConfig {
             List<ImageContentAnalyzer> imageContentAnalyzers
     ) {
         Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
-        return new ImageUploadService(imageUploadMaxDimension, fileNameGenerator, directory,imageContentAnalyzers);
+        return new ImageUploadService(imageUploadMaxDimension, fileNameGenerator, directory, imageContentAnalyzers);
     }
 
     @Bean
@@ -42,7 +44,7 @@ public class DomainServiceConfig {
             List<ImageContentAnalyzer> imageContentAnalyzers
     ) {
         Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
-        return new GifUploadService(imageUploadMaxDimension, fileNameGenerator, directory,imageContentAnalyzers);
+        return new GifUploadService(imageUploadMaxDimension, fileNameGenerator, directory, imageContentAnalyzers);
     }
 
     @Bean
@@ -64,7 +66,7 @@ public class DomainServiceConfig {
             String directoryPath
     ) {
         Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
-        return new OujingzhouImageContentAnalyzer(directory,0.45f);
+        return new OujingzhouImageContentAnalyzer(directory, 0.45f);
     }
 
     @Bean
@@ -78,5 +80,14 @@ public class DomainServiceConfig {
         Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
         Path tempDirectory = Path.of(AppUtils.getFilePrefixByOs() + tempDirectoryPath);
         return new WavUploadService(fileNameGenerator, directory, tempDirectory);
+    }
+
+    @Bean
+    UploadManager uploadManagerImpl(
+            List<UploadService> uploadServices,
+            FileMetadataDao fileMetadataDao,
+            FileMetadataMapper fileMetadataMapper
+    ) {
+        return new UploadManagerImpl(uploadServices, fileMetadataDao, fileMetadataMapper);
     }
 }

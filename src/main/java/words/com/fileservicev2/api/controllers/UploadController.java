@@ -6,15 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import words.backend.authmodule.net.models.User;
 import words.com.fileservicev2.api.mappers.UploadRespondMapper;
 import words.com.fileservicev2.api.responds.UploadRespond;
-import words.com.fileservicev2.domain.exceptions.UploadFileException;
+import words.com.fileservicev2.domain.services.UploadManager;
 import words.com.fileservicev2.domain.services.UploadService;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +25,7 @@ import java.util.Set;
 @RequestMapping("/upload")
 public class UploadController {
     private final UploadRespondMapper uploadRespondMapper;
+    private final UploadManager uploadManager;
     private final List<UploadService> uploadServices;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -39,22 +38,7 @@ public class UploadController {
             )
             @RequestPart("file") MultipartFile file
     ) throws IOException {
-        log.info("User {} is uploading file: {}", user.phoneNumber(), file.getOriginalFilename());
-        var fileName = file.getOriginalFilename();
-        if (!StringUtils.hasText(fileName)) {
-            throw new UploadFileException("File name is empty.");
-        }
-
-        for (UploadService uploadService : uploadServices) {
-            if (!uploadService.canUpload(file.getOriginalFilename())) {
-                continue;
-            }
-            var result = uploadService.upload(file,user);
-            log.info("File uploaded: {}", result.fileName());
-            return uploadRespondMapper.toRespond(result);
-        }
-
-        throw new UploadFileException("Unsupported file type.");
+        return uploadRespondMapper.toRespond(uploadManager.upload(file, user));
     }
 
     @GetMapping("/supported-extensions")
