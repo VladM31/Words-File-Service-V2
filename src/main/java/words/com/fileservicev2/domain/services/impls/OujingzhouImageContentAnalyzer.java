@@ -4,7 +4,7 @@ import com.oujingzhou.censor.ImageCensor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
-import words.com.fileservicev2.domain.utils.AppUtils;
+import words.com.fileservicev2.utils.AppUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;

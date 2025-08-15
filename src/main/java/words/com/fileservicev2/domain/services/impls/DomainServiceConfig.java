@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import words.com.fileservicev2.domain.services.FileNameGenerator;
 import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
 import words.com.fileservicev2.domain.services.UploadService;
-import words.com.fileservicev2.domain.utils.AppUtils;
+import words.com.fileservicev2.utils.AppUtils;
 
 
 import java.nio.file.Path;

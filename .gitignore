@@ -35,5 +35,5 @@ build/
 /mvnw.cmd
 /files/
 /.mvn/wrapper/maven-wrapper.properties
-/src/main/resources/application-postgress.properties
+/src/main/resources/application-postgresql.properties
 /src/main/resources/application-cloud.properties

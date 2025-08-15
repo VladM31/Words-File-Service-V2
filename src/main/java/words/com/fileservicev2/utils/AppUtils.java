@@ -1,4 +1,6 @@
-package words.com.fileservicev2.domain.utils;
+package words.com.fileservicev2.utils;
+
+import java.time.ZoneId;
 
 public class AppUtils {
     public static boolean isWindows() {
@@ -8,4 +10,6 @@ public class AppUtils {
     public static String getFilePrefixByOs() {
         return isWindows() ? "" : "/";
     }
+
+    public static ZoneId APP_ZONE_ID = ZoneId.of("UTC"); // Default zone ID for the application
 }

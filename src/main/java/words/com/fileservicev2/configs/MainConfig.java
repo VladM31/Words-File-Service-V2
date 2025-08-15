@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import words.backend.authmodule.configs.WordSecurityMainConfig;
+import words.com.fileservicev2.db.daos.impls.DaoConfig;
 import words.com.fileservicev2.domain.services.impls.DomainServiceConfig;
 
 @Configuration
 @Import(
         {
+                DaoConfig.class,
                 DomainServiceConfig.class,
                 WordSecurityMainConfig.class
         }
