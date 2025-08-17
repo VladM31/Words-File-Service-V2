@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import words.com.fileservicev2.db.entities.FileMetadataEntity;
 import words.com.fileservicev2.db.searches.FileMetadataSearch;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface FileMetadataDao {
@@ -16,6 +17,8 @@ public interface FileMetadataDao {
     boolean exists(FileMetadataSearch search);
 
     void save(FileMetadataEntity fileMetadataEntity);
+
+    void saveAll(Collection<FileMetadataEntity> fileMetadataEntities);
 
     void update(FileMetadataEntity fileMetadataEntity);
 

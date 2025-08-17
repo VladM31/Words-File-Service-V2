@@ -2,6 +2,7 @@ package words.com.fileservicev2.db.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +15,7 @@ import java.time.OffsetDateTime;
 @Data
 @Entity
 @Table
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileMetadataEntity {

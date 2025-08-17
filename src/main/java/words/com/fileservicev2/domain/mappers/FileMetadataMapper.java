@@ -54,6 +54,23 @@ public class FileMetadataMapper {
         return fileMetadataEntity;
     }
 
+    public FileMetadataEntity toImportedEntity(FileMetadataEntity entity, User user) {
+        FileMetadataEntity fileMetadataEntity = new FileMetadataEntity();
+        fileMetadataEntity.setId(UUID.randomUUID().toString());
+
+        fileMetadataEntity.setOwnerId(user.id());
+        fileMetadataEntity.setFilename(entity.getFilename());
+        fileMetadataEntity.setExtension(entity.getExtension());
+        fileMetadataEntity.setDirectory(entity.getDirectory());
+
+        fileMetadataEntity.setCreationType(CreationType.IMPORTED);
+        fileMetadataEntity.setUsageCount(0);
+        fileMetadataEntity.setCreatedAt(OffsetDateTime.now(AppUtils.APP_ZONE_ID));
+        fileMetadataEntity.setUpdatedAt(fileMetadataEntity.getCreatedAt());
+
+        return fileMetadataEntity;
+    }
+
     private String getExtension(String fileName) {
         int lastIndexOfDot = fileName.lastIndexOf('.');
         if (lastIndexOfDot == -1 || lastIndexOfDot == fileName.length() - 1) {

@@ -9,6 +9,7 @@ import words.com.fileservicev2.db.searches.FileMetadataSearch;
 import words.com.fileservicev2.utils.AppUtils;
 
 import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,6 +34,14 @@ public class FileMetadataDaoImpl implements FileMetadataDao {
     @Override
     public void save(FileMetadataEntity fileMetadataEntity) {
         repository.save(fileMetadataEntity);
+    }
+
+    @Override
+    public void saveAll(Collection<FileMetadataEntity> fileMetadataEntities) {
+        if (fileMetadataEntities.isEmpty()) {
+            return;
+        }
+        repository.saveAll(fileMetadataEntities);
     }
 
     @Override

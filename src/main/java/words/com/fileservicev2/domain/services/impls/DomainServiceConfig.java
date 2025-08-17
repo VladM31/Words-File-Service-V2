@@ -3,14 +3,14 @@ package words.com.fileservicev2.domain.services.impls;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import words.com.fileservicev2.db.daos.FileMetadataDao;
+import words.com.fileservicev2.domain.mappers.FileDirectionMapper;
 import words.com.fileservicev2.domain.mappers.FileMetadataMapper;
-import words.com.fileservicev2.domain.services.FileNameGenerator;
-import words.com.fileservicev2.domain.services.ImageContentAnalyzer;
-import words.com.fileservicev2.domain.services.UploadManager;
-import words.com.fileservicev2.domain.services.UploadService;
+import words.com.fileservicev2.domain.services.*;
 import words.com.fileservicev2.utils.AppUtils;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Random;
 
@@ -89,5 +89,35 @@ public class DomainServiceConfig {
             FileMetadataMapper fileMetadataMapper
     ) {
         return new UploadManagerImpl(uploadServices, fileMetadataDao, fileMetadataMapper);
+    }
+
+    @Bean
+    DownloadService downloadService(
+            FileMetadataDao fileMetadataDao,
+            FileDirectionMapper fileDirectionMapper
+    ) {
+        return new DownloadServiceImpl(fileMetadataDao, fileDirectionMapper);
+    }
+
+    @Bean
+    TokenGenerator tokenGeneratorImpl(
+            @Value("${server.token-key.path}")
+            String tokenKeyPath
+    ) throws IOException, NoSuchAlgorithmException {
+        Path tokenKey = Path.of(AppUtils.getFilePrefixByOs() + tokenKeyPath);
+        return new TokenGeneratorImpl(tokenKey);
+    }
+
+    @Bean
+    ShareFileService shareFileServiceImpl(
+            TokenGenerator tokenGenerator,
+            FileMetadataDao fileMetadataDao,
+            FileMetadataMapper fileMetadataMapper
+    ) {
+        return new ShareFileServiceImpl(
+                tokenGenerator,
+                fileMetadataDao,
+                fileMetadataMapper
+        );
     }
 }
