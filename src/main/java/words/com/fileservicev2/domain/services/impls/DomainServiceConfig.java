@@ -3,9 +3,11 @@ package words.com.fileservicev2.domain.services.impls;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import words.com.fileservicev2.db.daos.FileMetadataDao;
+import words.com.fileservicev2.domain.mappers.AudioGeneratorMapper;
 import words.com.fileservicev2.domain.mappers.FileDirectionMapper;
 import words.com.fileservicev2.domain.mappers.FileMetadataMapper;
 import words.com.fileservicev2.domain.services.*;
+import words.com.fileservicev2.net.clients.AudioGenerateClient;
 import words.com.fileservicev2.utils.AppUtils;
 
 import java.io.IOException;
@@ -116,6 +118,31 @@ public class DomainServiceConfig {
     ) {
         return new ShareFileServiceImpl(
                 tokenGenerator,
+                fileMetadataDao,
+                fileMetadataMapper
+        );
+    }
+
+    @Bean
+    AudioGenerator audioGeneratorImpl(
+            AudioGeneratorMapper audioGeneratorMapper,
+            AudioGenerateClient audioGenerateClient,
+            FileNameGenerator fileNameGenerator,
+            @Value("${server.audio.upload.directory}")
+            String directoryPath,
+            @Value("${server.temp-audio.upload.directory}")
+            String tempDirectoryPath,
+            FileMetadataDao fileMetadataDao,
+            FileMetadataMapper fileMetadataMapper
+    ) {
+        Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
+        Path tempDirectory = Path.of(AppUtils.getFilePrefixByOs() + tempDirectoryPath);
+        return new AudioGeneratorImpl(
+                audioGeneratorMapper,
+                audioGenerateClient,
+                fileNameGenerator,
+                directory,
+                tempDirectory,
                 fileMetadataDao,
                 fileMetadataMapper
         );
