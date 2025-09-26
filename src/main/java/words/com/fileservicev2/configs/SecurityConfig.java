@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.HttpBasicC
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import words.backend.authmodule.domain.httpfilters.JwtAuthFilter;
+import words.backend.authmodule.domain.factories.JwtAuthOncePerRequestFilterFactory;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +18,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
-                                           JwtAuthFilter jwtAuthFilter
+                                           JwtAuthOncePerRequestFilterFactory filterFactory
     ) throws Exception {
 
         http.httpBasic(HttpBasicConfigurer::disable)
@@ -35,7 +35,7 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated())
-                .addFilterBefore(jwtAuthFilter,
+                .addFilterBefore(filterFactory.create(),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

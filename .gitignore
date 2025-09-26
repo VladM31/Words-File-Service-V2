@@ -39,3 +39,4 @@ build/
 /src/main/resources/application-cloud.properties
 /src/main/resources/application-hide.properties
 /src/main/resources/application-hide.properties
+/build_jar.txt

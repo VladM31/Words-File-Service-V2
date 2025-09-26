@@ -10,7 +10,7 @@
     </parent>
     <groupId>words.com</groupId>
     <artifactId>FileServiceV2</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>V1</version>
     <name>FileServiceV2</name>
     <description>FileServiceV2</description>
     <url/>

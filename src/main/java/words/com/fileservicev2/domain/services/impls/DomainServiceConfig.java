@@ -65,10 +65,12 @@ public class DomainServiceConfig {
     @Bean
     ImageContentAnalyzer oujingzhouImageContentAnalyzer(
             @Value("${server.oujingzhou.upload.directory}")
-            String directoryPath
+            String directoryPath,
+            @Value("${server.image.upload.valid-probability}")
+            float minPornProbability
     ) {
         Path directory = Path.of(AppUtils.getFilePrefixByOs() + directoryPath);
-        return new OujingzhouImageContentAnalyzer(directory, 0.45f);
+        return new OujingzhouImageContentAnalyzer(directory, minPornProbability);
     }
 
     @Bean
