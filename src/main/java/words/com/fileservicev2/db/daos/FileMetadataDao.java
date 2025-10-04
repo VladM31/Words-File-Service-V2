@@ -22,5 +22,7 @@ public interface FileMetadataDao {
 
     void update(FileMetadataEntity fileMetadataEntity);
 
+    void updateAll(Collection<FileMetadataEntity> fileMetadataEntities);
+
     void incrementCount(String fileMetadataId);
 }

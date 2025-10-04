@@ -149,4 +149,12 @@ public class DomainServiceConfig {
                 fileMetadataMapper
         );
     }
+
+    @Bean
+    FileDeleteService fileDeleteService(
+            FileMetadataDao fileMetadataDao,
+            FileDirectionMapper fileDirectionMapper
+    ) {
+        return new FileDeleteServiceImpl(fileMetadataDao, fileDirectionMapper);
+    }
 }

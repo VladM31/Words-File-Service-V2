@@ -40,4 +40,8 @@ public class FileMetadataEntity {
     private OffsetDateTime createdAt;
     @LastModifiedBy
     private OffsetDateTime updatedAt;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean needDelete;
+    private OffsetDateTime deletedAt;
 }

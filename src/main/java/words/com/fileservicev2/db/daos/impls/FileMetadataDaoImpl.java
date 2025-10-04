@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FileMetadataDaoImpl implements FileMetadataDao {
+class FileMetadataDaoImpl implements FileMetadataDao {
     private final FileMetadataRepository repository;
 
     @Override
@@ -47,6 +47,14 @@ public class FileMetadataDaoImpl implements FileMetadataDao {
     @Override
     public void update(FileMetadataEntity fileMetadataEntity) {
         repository.save(fileMetadataEntity);
+    }
+
+    @Override
+    public void updateAll(Collection<FileMetadataEntity> fileMetadataEntities) {
+        if (fileMetadataEntities.isEmpty()) {
+            return;
+        }
+        repository.saveAll(fileMetadataEntities);
     }
 
     @Override

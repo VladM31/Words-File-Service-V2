@@ -39,6 +39,9 @@ public class FileMetadataSearch implements Specification<FileMetadataEntity> {
     private Range<OffsetDateTime> updatedAt;
 
     private Boolean hasOwnerId;
+    private Boolean hasDeletedAt;
+    private Boolean needDeleted;
+
 
     @Singular("subSearch")
     private Collection<FileMetadataSearch> subSearches;
@@ -98,6 +101,17 @@ public class FileMetadataSearch implements Specification<FileMetadataEntity> {
         }
         if (hasOwnerId == Boolean.TRUE) {
             predicates.add(cb.isNotNull(root.get("ownerId")));
+        }
+
+        if (hasDeletedAt == Boolean.FALSE) {
+            predicates.add(cb.isNull(root.get("deletedAt")));
+        }
+        if (hasDeletedAt == Boolean.TRUE) {
+            predicates.add(cb.isNotNull(root.get("deletedAt")));
+        }
+
+        if (needDeleted != null) {
+            predicates.add(cb.equal(root.get("needDelete"), needDeleted));
         }
 
         if (!CollectionUtils.isEmpty(subSearches)) {
