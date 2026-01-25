@@ -13,7 +13,7 @@ import java.util.Map;
 class AiAudioGenerateClient implements AudioGenerateClient {
     private static final Map<Language, String> MODEL_BY_LANGUAGE = Map.of(
             Language.ENGLISH, "tts-1",
-            Language.CZECH, "cs_cz_medium",
+            Language.CZECH, "voice-cz-model.onnx",
             Language.POLISH, "pl_PL-gosia-medium.onnx",
             Language.GERMAN, "voice-de-eva_k-x-low",
             Language.FRENCH, "voice-fr-siwis-low",
